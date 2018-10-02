@@ -19,5 +19,7 @@ SRC_MOD-GOLANG-EXAMPLE= \
 	$(DIR_MOD-GOLANG-EXAMPLE)/handler.go \
 	$(DIR_MOD-GOLANG-EXAMPLE)/initialize.go \
 
+# You must also run this command to allow all linker flags...
+#   $ export CGO_LDFLAGS_ALLOW=".*"
 mod-golang-example:
-	$(GOBUILD) -v -x -o $(TGT_MOD-GOLANG-EXAMPLE) -buildmode=c-shared $(SRC_MOD-GOLANG-EXAMPLE)
+	$(GOBUILD) -x -o $(TGT_MOD-GOLANG-EXAMPLE) -buildmode=c-shared $(SRC_MOD-GOLANG-EXAMPLE)
