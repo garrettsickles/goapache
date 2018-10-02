@@ -2,21 +2,17 @@ package main
 
 /*
 #cgo CFLAGS: -I/usr/local/opt/httpd/include/httpd
+#cgo CFLAGS: -I/usr/include/apache2
+#cgo CFLAGS: -I/usr/include/apr-1.0
 #cgo LDFLAGS: -L/usr/lib -lapr-1 -laprutil-1
 
 #include <httpd.h>
 #include <http_config.h>
-#include <apr-1/apr_pools.h>
+#include <apr_pools.h>
+#include <apr_hooks.h>
 
 extern const char* configure(cmd_parms*,void*,const char*);
-extern void initialize(apr_pool_t*,server_rec*);
-extern int handler(request_rec*);
-
-void hooks(apr_pool_t *pool)
-{
-	ap_hook_child_init(initialize, NULL, NULL, APR_HOOK_FIRST);
-	ap_hook_handler(handler, NULL, NULL, APR_HOOK_MIDDLE);
-}
+extern void hooks(apr_pool_t*);
 
 static const command_rec directives[2] =
 {
