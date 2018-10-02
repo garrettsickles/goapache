@@ -14,6 +14,14 @@ package main
 
 extern const char* configure(cmd_parms*,void*,const char*);
 extern void hooks(apr_pool_t*);
+extern void initialize(apr_pool_t*,server_rec*);
+extern int handler(request_rec*);
+
+void hooks(apr_pool_t *pool)
+{
+	ap_hook_child_init(initialize, NULL, NULL, APR_HOOK_FIRST);
+	ap_hook_handler(handler, NULL, NULL, APR_HOOK_MIDDLE);
+}
 
 static const command_rec directives[2] =
 {

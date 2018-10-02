@@ -14,10 +14,9 @@ TGT_MOD-GOLANG-EXAMPLE=libmod-golang-example.so
 DIR_MOD-GOLANG-EXAMPLE=$(CMD-DIR)/mod-golang-example
 SRC_MOD-GOLANG-EXAMPLE= \
 	$(DIR_MOD-GOLANG-EXAMPLE)/configure.go \
-	$(DIR_MOD-GOLANG-EXAMPLE)/hooks.go \
-	$(DIR_MOD-GOLANG-EXAMPLE)/module.go \
 	$(DIR_MOD-GOLANG-EXAMPLE)/handler.go \
 	$(DIR_MOD-GOLANG-EXAMPLE)/initialize.go \
+	$(DIR_MOD-GOLANG-EXAMPLE)/module.go
 
 # You must also run this command to allow all linker flags...
 #   $ export CGO_LDFLAGS_ALLOW=".*"
