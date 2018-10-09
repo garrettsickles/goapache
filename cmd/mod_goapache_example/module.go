@@ -13,7 +13,7 @@ package main
 #include <apr_pools.h>
 
 extern void hooks(apr_pool_t*);
-extern const command_rec directives[2];
+extern const command_rec directive[2];
 
 module AP_MODULE_DECLARE_DATA mod_golang_example =
 {
@@ -22,7 +22,7 @@ module AP_MODULE_DECLARE_DATA mod_golang_example =
 	NULL,
 	NULL,
 	NULL,
-	directives,
+	directive,
 	hooks
 };
 */

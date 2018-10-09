@@ -3,6 +3,8 @@ package main
 /*
 #include <httpd.h>
 #include <http_config.h>
+#include <http_protocol.h>
+#include <apr_pools.h>
 
 extern void
 initialize(apr_pool_t*,server_rec*);
