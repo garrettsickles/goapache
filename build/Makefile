@@ -14,6 +14,7 @@ TGT_MOD_EXAMPLE = mod_example.so
 DIR_MOD_EXAMPLE = $(CMD_DIR)/mod_example
 SRC_MOD_EXAMPLE =                    \
 	$(DIR_MOD_EXAMPLE)/configure.go  \
+	$(DIR_MOD_EXAMPLE)/directive.go  \
 	$(DIR_MOD_EXAMPLE)/handler.go    \
 	$(DIR_MOD_EXAMPLE)/hooks.go      \
 	$(DIR_MOD_EXAMPLE)/initialize.go \
