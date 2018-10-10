@@ -8,10 +8,13 @@ GOGET   = $(GOCMD) get
 # Local Directory
 ROOT_DIR = ../..
 
-# libgoapache
+# goapache
+LDFLAGS_GOAPACHE = "-Wl,-z,relro,-z,now"
 DIR_GOAPACHE = $(ROOT_DIR)
 SRC_GOAPACHE =              \
 	$(DIR_GOAPACHE)/read.go \
 
-goapache:
+# You must also run this command to allow all linker flags...
+#   $ export CGO_LDFLAGS_ALLOW=".*"
+build:
 	$(GOBUILD) -x $(SRC_GOAPACHE)
