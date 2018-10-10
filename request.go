@@ -47,6 +47,7 @@ func WriteResponse(request *Request, mime string, code int, data []byte) {
 	var r = (*C.request_rec)(unsafe.Pointer(request.RequestRec))
 
 	mime_cstr := C.CString(mime)
+	C.puts(mime_cstr)
 	C.ap_set_content_type(r, mime_cstr)
 	C.free(unsafe.Pointer(mime_cstr))
 
