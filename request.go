@@ -9,21 +9,9 @@ package goapache
 #cgo LDFLAGS: -Wl,-z,relro,-z,now -L/usr/lib64 -lpthread -ldl
 
 #include <http_protocol.h>
-
-// Content-Type
-char* content_types[2] =
-{
-	"application/json",
-	NULL
-};
-
 */
 import "C"
 import "unsafe"
-
-const (
-	Application_JSON int = 1
-)
 
 // Request - Wrapper class for apache request_rec
 type Request struct {
@@ -55,12 +43,16 @@ func ParseRequest(rec uintptr) *Request {
 	}
 }
 
-func WriteResponse(request *Request, contentType int, code int, data []byte) {
+func WriteResponse(request *Request, contentType string, code int, data []byte) {
 	var r = (*C.request_rec)(unsafe.Pointer(request.RequestRec))
 
-	C.ap_set_content_type(r, C.content_types[0])
+	contentTypeRaw := C.CString(contentType)
+	var contentTypeC *C.char = C.ap_make_content_type(r, contentTypeRaw)
+	C.free(unsafe.Pointer(contentTypeRaw))
+	C.ap_set_content_type(r, contentTypeC)
 
 	C.puts(r.content_type)
+	C.puts(contentTypeC)
 
 	C.ap_set_content_length(r, C.long(len(data)))
 	C.ap_rwrite(unsafe.Pointer(&data[0]), C.int(len(data)), r)
