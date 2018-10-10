@@ -11,10 +11,7 @@ package goapache
 #include "httpd.h"
 */
 import "C"
-
-import (
-	"http"
-)
+import "unsafe"
 
 // Request - Wrapper class for apache request_rec
 type Request struct {
@@ -27,9 +24,9 @@ type Request struct {
 func GetRquest(rec uintptr) *Request {
 	var r = (*C.request_rec)(unsafe.Pointer(rec))
 
-	return &Request(
+	return &Request{
 		rec,
 		C.GoString(r.handler),
-		C.GoString(r.method)
-	)
+		C.GoString(r.method),
+	}
 }
