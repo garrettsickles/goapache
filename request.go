@@ -8,10 +8,22 @@ package goapache
 #cgo CFLAGS: -I/usr/include/apr-1
 #cgo LDFLAGS: -Wl,-z,relro,-z,now -L/usr/lib64 -lpthread -ldl
 
-#include "http_protocol.h"
+#include <http_protocol.h>
+
+// Content-Type
+char* content_types[2] =
+{
+	"application/json",
+	NULL
+};
+
 */
 import "C"
 import "unsafe"
+
+const (
+	Application_JSON int = 1
+)
 
 // Request - Wrapper class for apache request_rec
 type Request struct {
@@ -43,13 +55,10 @@ func ParseRequest(rec uintptr) *Request {
 	}
 }
 
-func WriteResponse(request *Request, mime string, code int, data []byte) {
+func WriteResponse(request *Request, contentType int, code int, data []byte) {
 	var r = (*C.request_rec)(unsafe.Pointer(request.RequestRec))
 
-	mime_cstr := C.CString(mime)
-	C.puts(mime_cstr)
-	C.ap_set_content_type(r, mime_cstr)
-	C.free(unsafe.Pointer(mime_cstr))
+	C.ap_set_content_type(r, C.content_types[0])
 
 	C.puts(r.content_type)
 
