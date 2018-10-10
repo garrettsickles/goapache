@@ -17,16 +17,36 @@ import "unsafe"
 type Request struct {
 	RequestRec uintptr
 
-	Handler string
-	Method string
+	ProtoNum int `json:protocol_number`
+	Protocol string `json:protocol`
+
+	Chunked int `json:chunked`
+
+	ContentLength int64 `json:content_length`
+
+	Handler string `json:handler`
+	Method string `json:method`
+	UnparsedURI string `json:unparsed_uri`
+	URI string `json:uri`
+
 }
 
-func GetRquest(rec uintptr) *Request {
+func ParseRequest(rec uintptr) *Request {
 	var r = (*C.request_rec)(unsafe.Pointer(rec))
 
 	return &Request{
 		rec,
+		int(r.proto_num),
+		C.GoString(r.protocol),
+		int(r.chunked),
+		int64(r.clength),
 		C.GoString(r.handler),
 		C.GoString(r.method),
+		C.GoString(r.unparsed_uri),
+		C.GoString(r.uri),
 	}
+}
+
+func Respond(request *Request) {
+
 }
