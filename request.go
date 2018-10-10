@@ -14,5 +14,5 @@ import "C"
 
 // Request - Wrapper class for apache request_rec
 type Request struct {
-	requestRecPtr uintptr
+	RequestRec uintptr
 }
