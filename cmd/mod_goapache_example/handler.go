@@ -2,10 +2,12 @@ package main
 
 /*
 #include <httpd.h>
+#include <http_protocol.h>
 */
 import "C"
 
 import (
+    "encoding/json"
 	"fmt"
 	"unsafe"
 
@@ -14,12 +16,16 @@ import (
 
 //export handler
 func handler(rec *C.request_rec) C.int {
-	var request goapache.Request
-	request.RequestRec = (uintptr)(unsafe.Pointer(rec))
+	request := goapache.ParseRequest((uintptr)(unsafe.Pointer(rec)))
 
-	body := goapache.ReadBody(request)
+	jsonBody, _ := json.Marshal(request)
 
-	fmt.Println(body)
+	fmt.Println(string(jsonBody))
 
-	return 0
+	//body := goapache.ReadBody(request)
+	//fmt.Println(body)
+
+	goapache.WriteResponse(request, "application/json", 200, jsonBody)
+
+	return C.OK
 }
