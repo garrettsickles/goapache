@@ -8,7 +8,7 @@ package goapache
 #cgo CFLAGS: -I/usr/include/apr-1
 #cgo LDFLAGS: -Wl,-z,relro,-z,now -L/usr/lib64 -lpthread -ldl
 
-#include "httpd.h"
+#include "http_protocol.h"
 */
 import "C"
 import "unsafe"
@@ -17,18 +17,14 @@ import "unsafe"
 type Request struct {
 	RequestRec uintptr `json:-`
 
-	ProtoNum int `json:protocol_number`
-	Protocol string `json:protocol`
-
-	Chunked int `json:chunked`
-
-	ContentLength int64 `json:content_length`
-
-	Handler string `json:handler`
-	Method string `json:method`
-	UnparsedURI string `json:unparsed_uri`
-	URI string `json:uri`
-
+	ProtoNum       int    `json:protocol_number`
+	Chunked        int    `json:chunked`
+	ContentLength  int64  `json:content_length`
+	Protocol       string `json:protocol`
+	Handler        string `json:handler`
+	Method         string `json:method`
+	UnparsedURI    string `json:unparsed_uri`
+	URI            string `json:uri`
 }
 
 func ParseRequest(rec uintptr) *Request {
@@ -37,9 +33,9 @@ func ParseRequest(rec uintptr) *Request {
 	return &Request{
 		rec,
 		int(r.proto_num),
-		C.GoString(r.protocol),
 		int(r.chunked),
 		int64(r.clength),
+		C.GoString(r.protocol),
 		C.GoString(r.handler),
 		C.GoString(r.method),
 		C.GoString(r.unparsed_uri),
@@ -47,6 +43,14 @@ func ParseRequest(rec uintptr) *Request {
 	}
 }
 
-func Respond(request *Request) {
+func WriteResponse(request *Request, mime string, code int, data []byte) {
+	var r = (*C.request_rec)(unsafe.Pointer(request.RequestRec))
 
+	mime_cstr := C.CString(mime)
+	C.ap_set_content_type(r, mime_cstr)
+	C.free(unsafe.Pointer(mime_cstr))
+
+	C.ap_set_content_length(r, C.long(len(data)))
+	C.ap_rwrite(unsafe.Pointer(&data[0]), C.int(len(data)), r)
+	r.status = C.int(code)
 }
