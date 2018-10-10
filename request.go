@@ -6,9 +6,10 @@ package goapache
 #cgo CFLAGS: -I/usr/include/httpd
 #cgo CFLAGS: -I/usr/include/apr-1.0
 #cgo CFLAGS: -I/usr/include/apr-1
-#cgo LDFLAGS: -Wl,-z,relro,-z,now -L/usr/lib64 -lpthread -ldl
+#cgo LDFLAGS: -shared -Wl,-z,relro,-z,now -L/usr/lib64 -lpthread -ldl
 
 #include <http_protocol.h>
+#include <apr_strings.h>
 */
 import "C"
 import "unsafe"
@@ -43,18 +44,18 @@ func ParseRequest(rec uintptr) *Request {
 	}
 }
 
+func getPooledString(str string, pool *C.apr_pool_t) *C.char {
+	raw := C.CString(str)
+	var pooled *C.char = C.apr_pstrdup(pool, raw)
+	C.free(unsafe.Pointer(raw))
+
+	return pooled
+}
 func WriteResponse(request *Request, contentType string, code int, data []byte) {
-	var r = (*C.request_rec)(unsafe.Pointer(request.RequestRec))
+	var rec = (*C.request_rec)(unsafe.Pointer(request.RequestRec))
 
-	contentTypeRaw := C.CString(contentType)
-	var contentTypeC *C.char = C.ap_make_content_type(r, contentTypeRaw)
-	C.free(unsafe.Pointer(contentTypeRaw))
-	C.ap_set_content_type(r, contentTypeC)
-
-	C.puts(r.content_type)
-	C.puts(contentTypeC)
-
-	C.ap_set_content_length(r, C.long(len(data)))
-	C.ap_rwrite(unsafe.Pointer(&data[0]), C.int(len(data)), r)
-	r.status = C.int(code)
+	C.ap_set_content_type(rec, getPooledString(contentType, rec.pool))
+	C.ap_set_content_length(rec, C.long(len(data)))
+	C.ap_rwrite(unsafe.Pointer(&data[0]), C.int(len(data)), rec)
+	rec.status = C.int(code)
 }
