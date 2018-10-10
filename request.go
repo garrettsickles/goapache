@@ -12,7 +12,24 @@ package goapache
 */
 import "C"
 
+import (
+	"http"
+)
+
 // Request - Wrapper class for apache request_rec
 type Request struct {
 	RequestRec uintptr
+
+	Handler string
+	Method string
+}
+
+func GetRquest(rec uintptr) *Request {
+	var r = (*C.request_rec)(unsafe.Pointer(rec))
+
+	return &Request(
+		rec,
+		C.GoString(r.handler),
+		C.GoString(r.method)
+	)
 }
