@@ -18,7 +18,7 @@ import (
 // ReadBody - Read the body of an apache request
 func ReadBody(r Request) []byte {
 
-	rec := (*C.request_rec)(unsafe.Pointer(r.requestRecPtr))
+	rec := (*C.request_rec)(unsafe.Pointer(r.RequestRec))
 
 	body := make([]byte, 0)
 
