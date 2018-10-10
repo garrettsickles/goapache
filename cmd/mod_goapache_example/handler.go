@@ -6,7 +6,7 @@ package main
 import "C"
 
 import (
-	"../../../goapache"
+	"github.com/garrettsickles/goapache"
 )
 
 //export handler
