@@ -51,6 +51,8 @@ func WriteResponse(request *Request, mime string, code int, data []byte) {
 	C.ap_set_content_type(r, mime_cstr)
 	C.free(unsafe.Pointer(mime_cstr))
 
+	C.puts(r.content_type)
+
 	C.ap_set_content_length(r, C.long(len(data)))
 	C.ap_rwrite(unsafe.Pointer(&data[0]), C.int(len(data)), r)
 	r.status = C.int(code)
