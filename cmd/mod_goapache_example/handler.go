@@ -11,5 +11,7 @@ import (
 
 //export handler
 func handler(rec *C.request_rec) C.int {
+
+	body := goapache.ReadBody(rec)
 	return 0
 }

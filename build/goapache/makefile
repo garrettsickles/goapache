@@ -9,10 +9,10 @@ GOGET   = $(GOCMD) get
 ROOT_DIR = ../..
 
 # goapache
-LDFLAGS_GOAPACHE = "-Wl,-z,relro,-z,now"
 DIR_GOAPACHE = $(ROOT_DIR)
-SRC_GOAPACHE =              \
-	$(DIR_GOAPACHE)/read.go \
+SRC_GOAPACHE =                 \
+	$(DIR_GOAPACHE)/read.go    \
+	$(DIR_GOAPACHE)/request.go \
 
 # You must also run this command to allow all linker flags...
 #   $ export CGO_LDFLAGS_ALLOW=".*"
