@@ -12,7 +12,6 @@ package goapache
 */
 import "C"
 
-
 import (
 	"unsafe"
 )

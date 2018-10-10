@@ -51,6 +51,7 @@ func getPooledString(str string, pool *C.apr_pool_t) *C.char {
 
 	return pooled
 }
+
 func WriteResponse(request *Request, contentType string, code int, data []byte) {
 	var rec = (*C.request_rec)(unsafe.Pointer(request.RequestRec))
 
