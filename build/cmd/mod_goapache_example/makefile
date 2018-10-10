@@ -6,7 +6,7 @@ GOTEST  = $(GOCMD) test
 GOGET   = $(GOCMD) get
 
 # Local Directory
-ROOT_DIR = ..
+ROOT_DIR = ../../..
 CMD_DIR = $(ROOT_DIR)/cmd
 
 # mod_goapache_example
