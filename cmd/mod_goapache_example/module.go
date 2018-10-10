@@ -15,7 +15,7 @@ package main
 extern void hooks(apr_pool_t*);
 extern const command_rec directive[2];
 
-module AP_MODULE_DECLARE_DATA mod_golang_example =
+module AP_MODULE_DECLARE_DATA mod_goapache_example =
 {
 	STANDARD20_MODULE_STUFF,
 	NULL,
