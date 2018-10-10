@@ -15,7 +15,7 @@ import "unsafe"
 
 // Request - Wrapper class for apache request_rec
 type Request struct {
-	RequestRec uintptr
+	RequestRec uintptr `json:-`
 
 	ProtoNum int `json:protocol_number`
 	Protocol string `json:protocol`
