@@ -16,16 +16,18 @@ import (
 
 //export handler
 func handler(rec *C.request_rec) C.int {
-	request := goapache.ParseRequest((uintptr)(unsafe.Pointer(rec)))
+	request := goapache.NewRequest((uintptr)(unsafe.Pointer(rec)))
 
 	jsonBody, _ := json.Marshal(request)
 
 	fmt.Println(string(jsonBody))
 
-	//body := goapache.ReadBody(request)
+	//body, _ := request.ReadBody()
 	//fmt.Println(body)
 
-	goapache.WriteResponse(request, "application/json", 200, jsonBody)
+	request.SetContentType("application/json")
+	request.SetStatusCode(200)
+	request.Respond(jsonBody)
 
 	return C.OK
 }
