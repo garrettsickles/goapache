@@ -9,7 +9,6 @@ package main
 //
 typedef const char* const_char_ptr;
 #define nullptr NULL
-
 */
 import "C"
 import "unsafe"

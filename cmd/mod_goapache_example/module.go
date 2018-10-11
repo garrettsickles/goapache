@@ -1,13 +1,6 @@
 package main
 
 /*
-#cgo CFLAGS: -I/usr/local/opt/httpd/include/httpd
-#cgo CFLAGS: -I/usr/include/apache2
-#cgo CFLAGS: -I/usr/include/httpd
-#cgo CFLAGS: -I/usr/include/apr-1.0
-#cgo CFLAGS: -I/usr/include/apr-1
-#cgo LDFLAGS: -shared -Wl,-z,relro,-z,now -L/usr/lib64 -lpthread -ldl
-
 #include <httpd.h>
 #include <http_config.h>
 #include <apr_pools.h>
