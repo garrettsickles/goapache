@@ -1,13 +1,6 @@
 package goapache
 
 /*
-#cgo CFLAGS: -I/usr/local/opt/httpd/include/httpd
-#cgo CFLAGS: -I/usr/include/apache2
-#cgo CFLAGS: -I/usr/include/httpd
-#cgo CFLAGS: -I/usr/include/apr-1.0
-#cgo CFLAGS: -I/usr/include/apr-1
-#cgo LDFLAGS: -shared -Wl,-z,relro,-z,now -L/usr/lib64 -lpthread -ldl
-
 #include <http_protocol.h>
 */
 import "C"
