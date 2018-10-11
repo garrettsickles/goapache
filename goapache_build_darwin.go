@@ -32,7 +32,7 @@ package goapache
 //
 //    Linker flags
 //
-#cgo LDFLAGS: -shared -Wl,-undefined,dynamic_lookup -L/usr/lib -lpthread -ldl
+#cgo LDFLAGS: -shared -Wl,-undefined,dynamic_lookup,-read_only_relocs,suppress -L/usr/lib -lpthread -ldl
 
 */
 import "C"
