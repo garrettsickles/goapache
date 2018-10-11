@@ -5,7 +5,7 @@ package main
 #include <http_config.h>
 
 //
-// Configurer functions (defined elsewhere, exported symbols)
+// Directive functions (see 'configure.go')
 //
 extern const char* configuration(cmd_parms*,void*,const char*);
 
@@ -25,6 +25,5 @@ const command_rec directives[2] =
 		NULL
 	}
 };
-
 */
 import "C"

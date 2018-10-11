@@ -126,13 +126,17 @@ func (r *Request) Respond(data []byte) (int, error) {
 }
 
 // ReadBody - Read the body of an apache request from a request object
-func (r *Request) ReadBody() ([]byte, error) {
+func (r *Request) ReadBody(blockSize int) ([]byte, error) {
+	if blockSize == 0 {
+		blockSize = C.HUGE_STRING_LEN
+	}
+
 	body := make([]byte, 0)
 
 	if C.ap_should_client_block(r.rec) == 0 {
-		var remain int64 = int64(r.rec.remaining)
-		buf := make([]byte, 8192)
-		bufCPtr := (*C.char)(unsafe.Pointer(&buf[0]))
+		remain := int64(r.rec.remaining)
+		buffer := make([]byte, 8192)
+		bufCPtr := (*C.char)(unsafe.Pointer(&buffer[0]))
 
 		var size int64
 		var pos int64
@@ -144,7 +148,7 @@ func (r *Request) ReadBody() ([]byte, error) {
 				size = length
 			}
 
-			body = append(body, buf[:size]...)
+			body = append(body, buffer[:size]...)
 			pos = pos + size
 		}
 	}
