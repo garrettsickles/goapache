@@ -11,14 +11,14 @@ import "unsafe"
 type Request struct {
 	RequestRec uintptr `json:"-"`
 
-	ProtoNum      int    `json:protocol_number`
-	Chunked       int    `json:chunked`
-	ContentLength int64  `json:content_length`
-	Protocol      string `json:protocol`
-	Handler       string `json:handler`
-	Method        string `json:method`
-	UnparsedURI   string `json:unparsed_uri`
-	URI           string `json:uri`
+	ProtoNum      int    `json:"protocol_number"`
+	Chunked       int    `json:"chunked"`
+	ContentLength int64  `json:"content_length"`
+	Protocol      string `json:"protocol"`
+	Handler       string `json:"handler"`
+	Method        string `json:"method"`
+	UnparsedURI   string `json:"unparsed_uri"`
+	URI           string `json:"uri"`
 }
 
 func ParseRequest(rec uintptr) *Request {
