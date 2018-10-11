@@ -14,48 +14,48 @@ import (
 type Request struct {
 	rec *C.request_rec `json:"-"`
 
-	/** Protocol version number of protocol; 1.1 = 1001 */
+	// Protocol version number of protocol; 1.1 = 1001
 	ProtocolNumber int `json:"protocolNumber"`
 
-	/** Protocol string, as given to us, or HTTP/0.9 */
+	// Protocol string, as given to us, or HTTP/0.9
 	Protocol string `json:"protocol"`
 
-	/** Host, as set by full URI or Host: */
+	// Host, as set by full URI or Host
 	Hostname string `json:"hostname"`
 
-	/** Time when the request started */
+	// Time when the request started
 	RequestTime int64 `json:"requestTime"`
 
-	/** Request method (eg. GET, HEAD, POST, etc.) */
+	// Request method (eg. GET, HEAD, POST, etc.)
 	Method string `json:"method"`
 
-	/** The "real" content length */
+	// The "real" content length
 	ContentLength int64 `json:"contentLength"`
 
-	/** sending chunked transfer-coding */
+	// sending chunked transfer-coding
 	Chunked int `json:"chunked"`
 
-	/** The handler string that we use to call a handler function */
+	// The handler string that we use to call a handler function
 	Handler string `json:"handler"`
 
-	/** The URI without any parsing performed */
+	// The URI without any parsing performed
 	UnparsedURI string `json:"unparsedUri"`
 
-	/** The path portion of the URI, or "/" if no path provided */
+	// The path portion of the URI, or "/" if no path provided
 	URI string `json:"uri"`
 
-	/** The filename on disk corresponding to this response */
+	// The filename on disk corresponding to this response
 	Filename string `json:"filename"`
 
-	/** The true filename stored in the filesystem, as in the true alpha case
-	 *  and alias correction, e.g. "Image.jpeg" not "IMAGE$1.JPE" on Windows.
-	 *  The core map_to_storage canonicalizes r->filename when they mismatch */
+	// The true filename stored in the filesystem, as in the true alpha case
+	// and alias correction, e.g. "Image.jpeg" not "IMAGE$1.JPE" on Windows.
+	// The core map_to_storage canonicalizes r->filename when they mismatch
 	FilenameCanonical string `json:"filenameCanonical"`
 
-	/** The PATH_INFO extracted from this request */
+	// The PATH_INFO extracted from this request
 	PathInfo string `json:"pathInfo"`
 
-	/** The QUERY_ARGS extracted from this request */
+	// The QUERY_ARGS extracted from this request
 	QueryArgs string `json:"queryArgs"`
 }
 
