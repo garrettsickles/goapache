@@ -17,7 +17,12 @@ When should you develop an Apache Module (in Go, or at all)?
 >
 > Apache Modules natively support shared resources, memory management, and a multiprocessing strategy for parallel execution of requests (see [Apache MPM Worker](https://httpd.apache.org/docs/2.4/mod/worker.html)).
 ### Development
+The `goapache` package support handling and processing Apache server request objects.
 
+#### `goapache`
+- [goapache_request.go](goapache_request.go)
+  - Contains the `type Request struct {...}` and pertinent methods
+  
 #### `mod_goapache_example`
 - [configure.go](cmd/mod_goapache_example/configure.go)
   - Contains directive handlers for processing the `module.conf` configuration
@@ -35,5 +40,3 @@ When should you develop an Apache Module (in Go, or at all)?
 - [module.go](cmd/mod_goapache_example/module.go)
   - Exports the `mod_goapache_example` to the shared object.
   - Referenced by the Apache Module configuration ([RHEL](configs/rhel/02-goapache_example.conf))
-
-#### `package goapache`
