@@ -1,4 +1,8 @@
 # Go-Apache
+| Documentation |
+|-|
+| [![GoDoc](https://godoc.org/github.com/garrettsickles/geolocation?status.png)](https://godoc.org/github.com/garrettsickles/geolocation) |
+
 A library to build Apache Modules with Go. With examples!
 
 Create Apache Portable Runtime module using **Go**
