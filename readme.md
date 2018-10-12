@@ -1,7 +1,21 @@
 # Go-Apache
+A library to build Apache Modules with Go. With examples!
 
 Create Apache Portable Runtime module using **Go**
+--
+The first question is, `What is an Apache Module?`
+> If you have never heard of an Apache Module, I would do a quick web search to familiarize yourself.
 
+The second question is, `Why would I want to build an Apache Module with Go?`
+> Go is amazing at writing performant webservers however there are some features (security, logging, metrics, etc..) for which it makes more sense to use a proxy server.
+> In these cases you are likely going to use **Nginx** or **Apache** to sit infront of your Go app.
+>
+> If you use Apache, you are going to configure the application to use multiple modules, one of which could be your custom module!
+
+When should you develop an Apache Module (in Go, or at all)?
+> Apache Modules are highly performant and configurable pieces of a larger webserver.
+>
+> Apache Modules natively support shared resources, memory management, and a multiprocessing strategy for parallel execution of requests (see [Apache MPM Worker](https://httpd.apache.org/docs/2.4/mod/worker.html)).
 ### Development
 
 #### `mod_goapache_example`
