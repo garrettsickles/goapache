@@ -16,7 +16,7 @@ The second question is, `Why would I want to build an Apache Module with Go?`
 >
 > If you use Apache, you are going to configure the application to use multiple modules, one of which could be your custom module!
 
-When should you develop an Apache Module (in Go, or at all)?
+`When should you develop an Apache Module (in Go, or at all)?`
 > Apache Modules are highly performant and configurable pieces of a larger webserver.
 >
 > Apache Modules natively support shared resources, memory management, and a multiprocessing strategy for parallel execution of requests (see [Apache MPM Worker](https://httpd.apache.org/docs/2.4/mod/worker.html)).
