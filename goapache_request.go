@@ -10,6 +10,38 @@ import (
 	"unsafe"
 )
 
+type Query struct {
+	// scheme ("http"/"ftp"/...)
+	Scheme string `json:"scheme"`
+
+	// combined [user[:password]\@]host[:port]
+	HostInfo string `json:"hostInfo"`
+
+	// user name, as in http://user:passwd\@host:port/
+	User string `json:"user"`
+
+	// password, as in http://user:passwd\@host:port/
+	Password string `json:"password"`
+
+	// hostname from URI (or from Host: header)
+	HostName string `json:"hostName"`
+
+	// port string (integer representation is in "port")
+	PortLiteral string `json:"portLiteral"`
+
+	// the request path (or NULL if only scheme://host was given)
+	Path string `json:"path"`
+
+	// Everything after a '?' in the path, if present
+	Query string `json:"query"`
+
+	// Trailing "#fragment" string, if present
+	Fragment string `json:"fragment"`
+
+	// The port number, numeric, valid only if port_str != NULL
+	PortNumber uint16 `json:"portNumber"`
+}
+
 // Request - Wrapper class for apache request_rec
 type Request struct {
 	rec *C.request_rec `json:"-"`
@@ -21,7 +53,7 @@ type Request struct {
 	Protocol string `json:"protocol"`
 
 	// Host, as set by full URI or Host
-	Hostname string `json:"hostname"`
+	HostName string `json:"hostName"`
 
 	// Time when the request started
 	RequestTime int64 `json:"requestTime"`
@@ -57,6 +89,9 @@ type Request struct {
 
 	// The QUERY_ARGS extracted from this request
 	QueryArgs string `json:"queryArgs"`
+
+	// The translated QUERY_ARGS from the parsed uri
+	ParsedURI *Query `json:"parsedURI"`
 }
 
 // NewRequest - Populate a request object from an apache request_rec
@@ -78,6 +113,18 @@ func NewRequest(rptr uintptr) *Request {
 		C.GoString(rec.canonical_filename),
 		C.GoString(rec.path_info),
 		C.GoString(rec.args),
+		&Query{
+			C.GoString(rec.parsed_uri.scheme),
+			C.GoString(rec.parsed_uri.hostinfo),
+			C.GoString(rec.parsed_uri.user),
+			C.GoString(rec.parsed_uri.password),
+			C.GoString(rec.parsed_uri.hostname),
+			C.GoString(rec.parsed_uri.port_str),
+			C.GoString(rec.parsed_uri.path),
+			C.GoString(rec.parsed_uri.query),
+			C.GoString(rec.parsed_uri.fragment),
+			uint16(rec.parsed_uri.port),
+		},
 	}
 }
 
