@@ -7,6 +7,7 @@ package goapache
 import "C"
 import (
 	"errors"
+	"fmt"
 	"unsafe"
 )
 
@@ -97,6 +98,11 @@ type Request struct {
 // NewRequest - Populate a request object from an apache request_rec
 func NewRequest(rptr uintptr) *Request {
 	rec := (*C.request_rec)(unsafe.Pointer(rptr))
+
+	ret := int(C.apr_uri_parse(rec.pool, rec.uri, &rec.parsed_uri))
+
+	fmt.Println(ret)
+
 	return &Request{
 		rec,
 		int(rec.proto_num),
