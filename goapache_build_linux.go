@@ -9,6 +9,7 @@ package goapache
 //    HTTPD
 //
 #cgo CFLAGS: -I/usr/include/httpd
+#cgo CFLAGS: -I/usr/include/apache2
 
 //
 //    (A)pache (P)ortable (R)untime
