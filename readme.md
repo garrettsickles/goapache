@@ -1,7 +1,7 @@
 # Go-Apache
 | Documentation |
 |-|
-| [![GoDoc](https://godoc.org/github.com/garrettsickles/geolocation?status.png)](https://godoc.org/github.com/garrettsickles/geolocation) |
+| [![GoDoc](https://godoc.org/github.com/garrettsickles/goapache?status.png)](https://godoc.org/github.com/garrettsickles/goapache) |
 
 A library to build Apache Modules with Go. With examples!
 
